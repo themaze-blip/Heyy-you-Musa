@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Hey you…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Caprasimo&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script defer data-auto-replace-svg="nest" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
+<style>
+/* ===== PALETTE (from your new reference image) ===== */
+:root{
+  --cream:#FCF2DD;   /* page background */
+  --peach:#F6DDB0;   /* soft blob / highlights */
+  --sage:#A8B57A;    /* green panels */
+  --sagel:#D3DAB4;   /* light sage */
+  --orange:#EE8A45;  /* buttons + accents */
+  --brown:#6A3B1A;   /* headings */
+  --ink:#3A2212;     /* body text */
+  --paper:#FFFAEE;   /* cards */
+  --disp:'Caprasimo','Cooper Black',Georgia,serif;
+  --script:'Allura','Brush Script MT',cursive;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --body:'Lora',Georgia,serif;
+  --r:26px;
+  --onsage:#FFFAEE;--s1:#f6e6c4;--s2:#fbf0d6;--rcpt:#fff;--hdbg:rgba(255,250,238,.95);
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--hdbg);backdrop-filter:blur(6px)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);background-image:radial-gradient(ellipse 60% 40% at 100% 0,var(--peach),transparent 70%),radial-gradient(ellipse 50% 30% at 0 100%,rgba(168,181,122,.35),transparent 70%);background-attachment:fixed;color:var(--ink);font:400 1.04rem/1.75 var(--body)}
+body.lock{overflow:hidden}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+
+/* floating food + code icons */
+#sparks{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.fls{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.fl{position:absolute;bottom:-60px;font-size:var(--s);color:var(--c);opacity:0;animation:float var(--d) linear var(--l) infinite;line-height:1}
+.fl.t{font-family:ui-monospace,'Courier New',monospace;font-weight:700}
+@keyframes float{0%{opacity:0;transform:translateY(0) rotate(0)}10%{opacity:.4}100%{opacity:0;transform:translateY(-115vh) rotate(var(--rot))}}
+
+/* header */
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--hdbg);backdrop-filter:blur(6px);border-bottom:1px solid var(--sagel);box-shadow:0 4px 18px rgba(106,59,26,.1)}
+.top{text-align:center;padding:.5rem 1rem 0}
+.logo{font:400 clamp(2.4rem,7vw,3.4rem)/1.1 var(--script);color:var(--brown);text-decoration:none}
+nav{display:flex;gap:.35rem;padding:.3rem 1rem .7rem;overflow-x:auto;white-space:nowrap}
+nav a:first-child{margin-left:auto}nav a:last-child{margin-right:auto}
+nav a{font:500 .72rem var(--body);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--brown);padding:.5rem 1rem;border-radius:999px;border:1px solid var(--sage);transition:.2s}
+nav a:hover{border-color:var(--orange);color:var(--orange)}
+nav a.on{background:var(--orange);color:#fff;border-color:var(--orange);font-weight:600}
+
+main{max-width:1180px;margin:0 auto;padding:0 1.5rem 4rem;position:relative;z-index:2}
+section{padding:2.6rem 0 1rem}
+.panel{display:none}
+.panel.on{display:block;animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+.mh{text-align:center;margin-bottom:2.4rem}
+.course{font:400 2rem/1 var(--script);color:var(--orange)}
+.mh h2{font:400 clamp(2.3rem,7.5vw,4.4rem)/1.05 var(--disp);color:var(--brown);margin:.3rem 0 .5rem}
+.mh p{font:italic 500 1.25rem var(--serif);opacity:.85;letter-spacing:.02em;max-width:620px;margin:0 auto}
+.orn{display:flex;align-items:center;gap:.9rem;justify-content:center;color:var(--orange);margin:.9rem 0 0}
+.orn::before,.orn::after{content:"";width:70px;height:1px;background:var(--orange);opacity:.6}
+
+.paper{background:var(--paper);border:2px solid var(--sage);border-radius:34px;box-shadow:inset 0 0 0 6px var(--paper),inset 0 0 0 7px var(--sagel),0 18px 40px rgba(106,59,26,.14)}
+
+/* ABOUT HIM */
+.about{max-width:860px;margin:0 auto;padding:3rem clamp(1.4rem,5vw,3.2rem)}
+.about h4{font:400 clamp(1.8rem,4.5vw,2.4rem)/1.2 var(--disp);color:var(--brown);margin:2.4rem 0 .8rem;text-align:center}
+.about h4:first-child{margin-top:0}
+.about h4 small{display:block;font:400 1.8rem var(--script);color:var(--orange);margin-bottom:.1rem}
+.about p{margin-bottom:1rem}
+.about .lead{font:italic 500 1.4rem/1.5 var(--serif);text-align:center}
+.values{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.2rem 2rem}
+.values li{padding:.7rem 0 .7rem 1.6rem;position:relative;border-bottom:1px dotted var(--sage);font-size:.97rem}
+.values li::before{content:"✦";position:absolute;left:0;top:.7rem;color:var(--orange)}
+.values strong{font-family:var(--serif);font-size:1.15rem;color:var(--brown)}
+.team{display:flex;gap:1.2rem;align-items:center;background:var(--sage);border-radius:24px;padding:1.3rem 1.5rem;margin:1rem 0 1.6rem}
+.team .mono{flex:none;width:70px;height:70px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font:400 2rem var(--disp);border:3px solid var(--paper)}
+.team b{font:400 1.3rem var(--disp);color:var(--ink)}
+.team span{display:block;font:italic 500 1.05rem var(--serif);color:var(--onsage);margin-bottom:.1rem}
+.milestones{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 2.6rem}
+.ms{display:flex;gap:.9rem}
+.ms i{flex:none;font:normal 400 1.7rem/1 var(--script);color:var(--orange);min-width:2rem}
+.ms b{font:400 1.05rem var(--disp);color:var(--brown)}
+.ms p{font-size:.9rem;margin:.1rem 0 0;opacity:.85}
+.sign{font:400 2.4rem/1.1 var(--script);color:var(--orange);margin-top:1.8rem;text-align:center}
+
+/* MENU: world tour */
+.menuwrap{max-width:1040px;margin:0 auto}
+.route{display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap;margin:-.6rem 0 2rem;font:500 .78rem var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--brown)}
+.route b{background:var(--sage);color:var(--ink);padding:.4rem .9rem;border-radius:999px}
+.route i{color:var(--orange);font-style:normal;font-size:1.1rem}
+.pass{display:flex;align-items:stretch;background:var(--paper);border:2px solid var(--sage);border-radius:22px;overflow:hidden;box-shadow:0 10px 24px rgba(106,59,26,.12);margin:0 0 1.2rem;position:relative}
+.pass .m{flex:1;padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.pass .ap small{display:block;font:500 .6rem var(--body);letter-spacing:.2em;text-transform:uppercase;opacity:.65}
+.pass .ap b{font:400 2rem/1 var(--disp);color:var(--brown)}
+.pass .ap.to b{color:var(--orange)}
+.pass .fl-line{flex:1;display:flex;align-items:center;gap:.5rem;color:var(--orange);font-size:1.3rem}
+.pass .fl-line::before,.pass .fl-line::after{content:"";flex:1;border-top:2px dashed var(--sage)}
+.pass .stub{flex:none;width:150px;background:var(--orange);color:#fff;padding:1rem;text-align:center;border-left:2px dashed var(--paper);display:flex;flex-direction:column;justify-content:center}
+.pass .stub small{font:500 .6rem var(--body);letter-spacing:.2em;text-transform:uppercase;opacity:.9}
+.pass .stub b{font:400 1.8rem/1.1 var(--script)}
+.dest{text-align:center;margin:.4rem 0 1.4rem}
+.dest h3{font:400 clamp(2rem,5.5vw,3rem)/1.1 var(--disp);color:var(--brown)}
+.dest span{display:block;font:400 2rem var(--script);color:var(--orange)}
+.dest small{display:block;font:italic 500 1.1rem var(--serif);opacity:.8}
+.region{background:var(--sage);border-radius:38px;padding:clamp(1.2rem,3vw,2.2rem);position:relative}
+.stamp{position:absolute;top:-22px;right:18px;transform:rotate(8deg);border:3px double var(--orange);color:var(--orange);background:var(--paper);border-radius:12px;padding:.25rem .9rem;font:500 .72rem var(--body);letter-spacing:.2em;text-transform:uppercase;z-index:3}
+.dishes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.dcard{background:var(--paper);color:var(--ink);border-radius:28px;padding:1.1rem 1rem 1.3rem;text-align:center;box-shadow:0 12px 24px rgba(58,34,18,.15);transition:transform .3s;cursor:pointer;position:relative}
+.dcard:hover{transform:translateY(-6px) rotate(-.5deg)}
+.fig{position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,var(--s1),var(--s1) 12px,var(--s2) 12px,var(--s2) 24px)}
+.dcard .fig{aspect-ratio:1/1;border-radius:50%;border:5px solid var(--sagel);margin-bottom:.9rem}
+.fig img,.fig video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.fig.missing::after{content:attr(data-label);position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:1.2rem;font:italic 500 .95rem var(--serif);color:var(--orange)}
+.dcard .tag{position:absolute;top:12px;right:12px;background:var(--orange);color:#fff;font:500 .65rem var(--body);letter-spacing:.12em;text-transform:uppercase;padding:.25rem .7rem;border-radius:999px;z-index:2}
+.dcard .it{font:italic 500 1rem var(--serif);color:var(--orange)}
+.dcard h4{font:400 1.3rem/1.2 var(--disp);color:var(--brown)}
+.dcard p{font-size:.88rem;opacity:.85;margin-top:.3rem}
+.dcard .pr{margin-top:.6rem;font:400 1.6rem/1 var(--script);color:var(--orange)}
+.connect{display:flex;align-items:center;gap:1rem;justify-content:center;margin:2.6rem 0 2.2rem;color:var(--brown);font:italic 500 1.15rem var(--serif);text-align:center}
+.connect::before,.connect::after{content:"";flex:1;border-top:2px dashed var(--sage)}
+.connect b{font-size:1.4rem;color:var(--orange);font-style:normal}
+.menunote{text-align:center;font:italic 500 1.15rem var(--serif);opacity:.8;margin-top:2.6rem}
+
+/* CHEF'S TABLE */
+.mag{max-width:960px;margin:0 auto;padding:2.6rem clamp(1.2rem,4vw,3rem) 3rem}
+.mast{text-align:center;border-top:3px solid var(--brown);border-bottom:1px solid var(--brown);padding:.8rem 0;margin-bottom:1.6rem}
+.mast small{display:block;font:500 .68rem var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--orange)}
+.mast h3{font:400 clamp(2.2rem,7vw,4rem)/1 var(--disp);color:var(--brown);margin:.4rem 0}
+.mast p{font:400 1.9rem var(--script);color:var(--orange)}
+.mag .headline{font:400 clamp(1.8rem,4.5vw,2.8rem)/1.1 var(--disp);color:var(--brown);text-align:center;margin-bottom:.4rem}
+.mag .deck{text-align:center;font:italic 500 1.3rem/1.4 var(--serif);max-width:640px;margin:0 auto 1.4rem}
+.mag .byline{text-align:center;font:500 .72rem var(--body);letter-spacing:.2em;text-transform:uppercase;border-top:1px solid var(--sage);border-bottom:1px solid var(--sage);padding:.5rem 0;margin-bottom:1.6rem}
+.cols{columns:2;column-gap:2.4rem;text-align:left}
+.cols p{margin-bottom:.9rem;font-size:.98rem}
+.cols .dc::first-letter{font:400 4rem/.8 var(--disp);float:left;padding:.35rem .6rem 0 0;color:var(--orange)}
+.pull{column-span:all;text-align:center;font:italic 500 1.8rem/1.3 var(--serif);color:var(--orange);padding:1rem 1.5rem;margin:.6rem 0 1.2rem;border-top:2px solid var(--orange);border-bottom:2px solid var(--orange)}
+.spread{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:2rem}
+.spread .ph{grid-column:span 2;background:var(--sagel);padding:8px 8px 0;border-radius:18px;box-shadow:0 8px 18px rgba(106,59,26,.2);cursor:pointer;transition:transform .3s}
+.spread .ph:nth-child(5n+1),.spread .ph:nth-child(5n+2){grid-column:span 3}
+.spread .ph:hover{transform:rotate(-1deg) translateY(-4px)}
+.spread .fig{aspect-ratio:4/3;border-radius:12px}
+.spread .ph:nth-child(5n+3) .fig,.spread .ph:nth-child(5n+4) .fig,.spread .ph:nth-child(5n+5) .fig{aspect-ratio:3/4}
+@media(max-width:600px){.spread{gap:10px}.spread .ph{padding:6px 6px 0;border-radius:14px}.spread figcaption{font-size:.8rem;padding:.4rem .15rem .6rem}}
+.spread figcaption{font:italic 500 .98rem/1.3 var(--serif);padding:.6rem .3rem .8rem;text-align:center;color:var(--ink)}
+
+/* GRACE & WISDOM */
+.sh{font:400 clamp(1.6rem,4vw,2.2rem)/1.2 var(--disp);color:var(--brown);text-align:center;margin:2.6rem 0 1.4rem}
+.vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.vcard{background:var(--paper);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform .3s;box-shadow:0 12px 26px rgba(106,59,26,.18);border:2px solid var(--sage)}
+.vcard:hover{transform:translateY(-5px)}
+.vcard .fig{aspect-ratio:3/4}
+.vcard .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.vcard .play span{width:54px;height:54px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;padding-left:3px}
+.vcard h4{font:400 1.15rem var(--disp);color:var(--brown);text-align:center;padding:.8rem}
+.verses{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.verse{background:var(--sage);border-radius:var(--r);padding:1.6rem 1.5rem}
+.verse q{display:block;quotes:none;font:italic 500 1.25rem/1.5 var(--serif);margin-bottom:.8rem;color:var(--ink)}
+.verse cite{font:400 1.8rem var(--script);color:var(--onsage);font-style:normal}
+
+/* RUBIK */
+.scene{position:relative;width:180px;height:180px;margin:3rem auto 4rem;perspective:900px;touch-action:none;cursor:grab;user-select:none}
+.scene::after{content:"";position:absolute;left:5%;right:5%;bottom:-52px;height:20px;border-radius:50%;background:radial-gradient(rgba(58,34,18,.3),transparent 70%)}
+.rv{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+.stk{position:absolute;left:50%;top:50%;margin:-28px 0 0 -28px;width:56px;height:56px;border-radius:9px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.core{position:absolute;left:50%;top:50%;margin:-89px 0 0 -89px;width:178px;height:178px;background:var(--ink);border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.rmsg{position:relative;max-width:620px;margin:0 auto 2rem;background:var(--paper);border:2px solid var(--sage);border-radius:var(--r);padding:1.7rem 1.6rem;font:italic 500 1.35rem/1.5 var(--serif);text-align:center;transform:rotate(-.6deg);box-shadow:0 10px 24px rgba(106,59,26,.15)}
+.rmsg::before{content:"";position:absolute;top:-12px;left:50%;width:90px;height:24px;margin-left:-45px;background:rgba(238,138,69,.75);transform:rotate(2deg)}
+.ticket{max-width:460px;margin:0 auto 1.5rem;display:flex;gap:1.2rem;align-items:center;border:2px dashed var(--orange);background:var(--paper);border-radius:var(--r);padding:1.2rem 1.6rem}
+.ticket>b{font-size:2rem;color:var(--orange)}
+.ticket h4{font:400 1.5rem/1.2 var(--disp);color:var(--brown)}
+.ticket p{font-size:.92rem;opacity:.8}
+.solve{font:500 .8rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--orange);border:0;border-radius:999px;padding:.85rem 2rem;cursor:pointer}
+.solve.alt{background:transparent;color:var(--brown);border:1px solid var(--brown)}
+.hint{text-align:center;font:italic 500 1.15rem var(--serif);opacity:.85;margin:1.5rem auto 1rem;max-width:460px}
+.moves{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;max-width:420px;margin:0 auto}
+.moves button{height:46px;border-radius:12px;border:2px solid var(--sage);background:var(--paper);color:var(--brown);font:500 1rem var(--body);cursor:pointer}
+.moves button:hover,.moves button:active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.rwin{display:none;text-align:center;margin-top:1.6rem}
+.rwin.on{display:block}
+.rwin span{display:inline-block;border:4px solid var(--orange);color:var(--orange);background:var(--paper);border-radius:12px;padding:.3rem 1.2rem;font:400 1.5rem/1.4 var(--disp);animation:slam .5s both}
+@keyframes slam{from{opacity:0;transform:scale(2.4) rotate(-14deg)}to{opacity:1;transform:scale(1) rotate(-4deg)}}
+
+/* BILL */
+.rcw{max-width:420px;margin:0 auto;filter:drop-shadow(0 14px 20px rgba(58,34,18,.25))}
+.receipt{background:var(--rcpt);color:var(--ink);padding:2rem 1.6rem 3rem;font:400 .92rem/1.7 ui-monospace,'Courier New',monospace;clip-path:polygon(0 0,100% 0,100% 100%,95.833% calc(100% - 12px),91.667% 100%,87.5% calc(100% - 12px),83.333% 100%,79.167% calc(100% - 12px),75% 100%,70.833% calc(100% - 12px),66.667% 100%,62.5% calc(100% - 12px),58.333% 100%,54.167% calc(100% - 12px),50% 100%,45.833% calc(100% - 12px),41.667% 100%,37.5% calc(100% - 12px),33.333% 100%,29.167% calc(100% - 12px),25% 100%,20.833% calc(100% - 12px),16.667% 100%,12.5% calc(100% - 12px),8.333% 100%,4.167% calc(100% - 12px),0 100%)}
+.panel.on .receipt{animation:rise 1s cubic-bezier(.2,.8,.2,1)}
+.rh{text-align:center;border-bottom:2px dashed var(--brown);padding-bottom:1rem;margin-bottom:1rem}
+.rh h3{font:400 1.6rem/1.1 var(--disp);color:var(--orange)}
+.rl{display:flex;gap:.5rem;align-items:baseline;margin-bottom:.3rem}
+.rl .ld{flex:1;border-bottom:2px dotted var(--brown);opacity:.4;transform:translateY(-3px)}
+.rt{border-top:2px dashed var(--brown);margin-top:.9rem;padding-top:.8rem;font-weight:700;font-size:1.05rem}
+.rn{margin-top:1rem}
+.big{font:400 2.2rem/1.1 var(--script);color:var(--orange);text-align:center;margin:1.2rem 0}
+.code{height:46px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 9px)}
+.srv{text-align:center;margin-top:.8rem;font-size:.85rem}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:300;overflow-y:auto;display:flex;padding:1.5rem 1rem;background:var(--cream);background-image:radial-gradient(ellipse 60% 40% at 100% 0,var(--peach),transparent 70%),radial-gradient(ellipse 50% 30% at 0 100%,rgba(168,181,122,.45),transparent 70%);transition:opacity .9s,visibility .9s;padding-top:calc(1.5rem + env(safe-area-inset-top,0px))}
+#splash.out{opacity:0;visibility:hidden}
+.art{position:relative;z-index:1;margin:auto;max-width:780px;background:var(--paper);border:2px solid var(--sage);border-radius:38px;padding:1.8rem clamp(1.2rem,4vw,2.8rem) 2.4rem;box-shadow:inset 0 0 0 6px var(--paper),inset 0 0 0 7px var(--sagel),0 30px 70px rgba(106,59,26,.25);text-align:center;animation:rise .9s both}
+.kick{font:400 1.8rem var(--script);color:var(--orange)}
+.hl{font:400 clamp(2.4rem,8.5vw,4.8rem)/1.02 var(--disp);color:var(--brown);margin:.3rem 0 1rem}
+.hl span{display:inline-block;opacity:0;transform:translateY(30px);animation:rise .8s forwards}
+.deck2{font:italic 500 clamp(1.15rem,2.6vw,1.45rem)/1.4 var(--serif);max-width:600px;margin:0 auto 1rem}
+.by{font:500 .72rem var(--body);letter-spacing:.2em;text-transform:uppercase;border-top:1px solid var(--sage);border-bottom:1px solid var(--sage);padding:.5rem 0;margin:1.2rem 0}
+.scols{text-align:left;columns:2;column-gap:2rem;font-size:.97rem}
+.scols p{margin-bottom:.8rem}
+.scols .dc::first-letter{font:400 3.6rem/.85 var(--disp);float:left;padding:.3rem .5rem 0 0;color:var(--orange)}
+.rate{margin:1.2rem 0 1.4rem;font:italic 500 1.15rem var(--serif)}
+.rate b{color:var(--orange);font-size:1.6rem;margin:0 .1rem;opacity:0;animation:pop .5s forwards}
+@keyframes pop{from{opacity:0;transform:scale(0) rotate(-90deg)}to{opacity:1;transform:none}}
+#enter{font:500 .8rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--orange);border:0;border-radius:999px;padding:1rem 2.4rem;cursor:pointer}
+
+/* lightbox: themed popup */
+.lb{display:none;position:fixed;inset:0;z-index:400;justify-content:center;align-items:center;flex-direction:column;gap:.9rem;padding:calc(1rem + env(safe-area-inset-top,0px)) 1rem calc(1rem + env(safe-area-inset-bottom,0px));
+  background:rgba(58,34,18,.55);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.lb.on{display:flex}
+.lb .card{background:var(--paper);color:var(--ink);border:2px solid var(--sage);border-radius:var(--r);padding:12px 12px 1rem;width:min(440px,86vw);box-shadow:0 24px 50px rgba(58,34,18,.4)}
+.lb .pin{display:none}
+.lb .box{border-radius:calc(var(--r) - 8px);overflow:hidden;background:var(--sagel);display:flex;justify-content:center}
+.lb img,.lb video{width:100%;max-height:62vh;object-fit:contain;display:block}
+.lb .cap{padding:.8rem .5rem 0;text-align:center}
+.lb .ct{font:400 clamp(1.25rem,3.4vw,1.55rem)/1.2 var(--disp);color:var(--brown)}
+.lb .cs{font:italic 500 1.1rem/1.35 var(--serif);margin-top:.25rem;color:var(--ink)}
+.lb .cnt{font:500 .72rem var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--cream)}
+.lb .x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:16px;width:44px;height:44px;border-radius:50%;font-size:1.7rem;line-height:1;background:var(--paper);border:2px solid var(--sage);color:var(--brown);cursor:pointer;z-index:12}
+.lb .nv{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border:2px solid var(--sage);border-radius:50%;background:var(--paper);color:var(--brown);display:grid;place-items:center;cursor:pointer;z-index:12;box-shadow:0 6px 14px rgba(58,34,18,.25)}
+.lb .nv:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+.lb .nv svg{width:20px;height:20px}
+.lb .l{left:16px}.lb .r{right:16px}
+/* videos: no letterbox colour, card hugs the video */
+.lb.vid .card{width:fit-content;max-width:min(92vw,520px);padding:10px 10px 1rem}
+.lb.vid .box{background:#000;border-radius:calc(var(--r) - 10px)}
+.lb.vid video{width:auto;max-width:100%;max-height:68vh;margin:0 auto}
+@media(max-width:600px){.lb.vid .card{width:fit-content;max-width:calc(100vw - 100px)}}
+@media(max-width:600px){.lb .card{width:min(440px,calc(100vw - 100px))}.lb .nv{width:40px;height:40px}.lb .l{left:8px}.lb .r{right:8px}}
+
+/* ---- scroll reveal ---- */
+.reveal{opacity:0;transform:translateY(46px) scale(.92);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.9,.3,1.35);transition-delay:calc(var(--d,0)*130ms)}
+.reveal.in{opacity:1;transform:none}
+.stamp.reveal{transform:rotate(8deg) scale(2)}
+.stamp.reveal.in{transform:rotate(8deg) scale(1)}
+nav a i{margin-right:.45rem;color:var(--sage)}
+nav a.on i{color:#fff}
+.takeoff{min-height:62vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.6rem;margin-bottom:3rem}
+.takeoff .route{margin:0;gap:1rem;font-size:.95rem}
+.takeoff .route b{padding:.75rem 1.5rem;font-size:1rem;box-shadow:0 8px 18px rgba(106,59,26,.18)}
+.takeoff .route b:first-of-type{background:var(--orange);color:#fff}
+.rt-pl{color:var(--orange);font-size:1.5rem}
+.cue{text-align:center;font:italic 500 1.2rem var(--serif);color:var(--brown)}
+.cue i{color:var(--orange);display:inline-block;margin-top:.4rem;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
+.stop{margin-bottom:6.5rem}
+.fl-line.in i{animation:fly 1.5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes fly{from{transform:translateX(-110px) translateY(12px);opacity:0}to{transform:none;opacity:1}}
+.connect b i{font-size:1.2rem}
+/* ---- cinnamon rolls article ---- */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:2rem 0}
+.trio .ph{background:var(--sagel);padding:8px;border-radius:18px;box-shadow:0 8px 18px rgba(106,59,26,.2);cursor:pointer;transition:transform .3s}
+.trio .ph:hover{transform:rotate(-1deg) translateY(-4px)}
+.trio .fig{aspect-ratio:4/5;border-radius:12px}
+.trio figcaption{font:italic 500 .98rem/1.3 var(--serif);padding:.6rem .3rem .8rem;text-align:center}
+.recipe{background:var(--sage);border-radius:30px;padding:clamp(1.2rem,3vw,2rem);margin:2rem 0}
+.rhead{text-align:center;margin-bottom:1.3rem}
+.rhead span{font:400 1.9rem var(--script);color:var(--onsage)}
+.rhead h4{font:400 clamp(1.5rem,4vw,2.1rem)/1.15 var(--disp);color:var(--ink)}
+.facts{display:flex;gap:.4rem 1.4rem;justify-content:center;flex-wrap:wrap;font-size:.85rem;margin-top:.6rem}
+.facts b{color:var(--brown)}
+.rcols{display:grid;grid-template-columns:1fr 1.25fr;gap:1.2rem}
+.rbox{background:var(--paper);border-radius:22px;padding:1.2rem 1.4rem}
+.rbox h5{font:400 1.25rem var(--disp);color:var(--brown);margin:1rem 0 .3rem}
+.rbox h5:first-child{margin-top:0}
+.rbox ul,.rbox ol{list-style:none}
+.rbox li{padding:.35rem 0 .35rem 1.4rem;position:relative;border-bottom:1px dotted var(--sage);font-size:.93rem}
+.rbox ul li::before{content:"✦";position:absolute;left:0;top:.6rem;color:var(--orange);font-size:.7rem}
+.rbox ol{counter-reset:s}
+.rbox ol li{padding:.7rem 0 .7rem 2.7rem;counter-increment:s}
+.rbox ol li::before{content:counter(s);position:absolute;left:0;top:.55rem;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font:400 1rem var(--disp)}
+.tip{margin-top:1.1rem;text-align:center;font:italic 500 1.1rem/1.4 var(--serif);color:var(--ink)}
+.verdict{text-align:center;margin:1.8rem 0;font:italic 500 1.4rem/1.4 var(--serif)}
+.verdict .st i{color:var(--orange);font-size:1.6rem;margin:0 .15rem}
+.thanks-note{border-top:2px solid var(--orange);padding-top:1.4rem;margin-top:1.8rem}
+.thanks-note h4{font:400 clamp(1.6rem,4vw,2.2rem)/1.2 var(--disp);color:var(--brown);text-align:center;margin-bottom:.6rem}
+.thanks-note p{margin-bottom:1rem}
+@media(max-width:760px){.rcols{grid-template-columns:1fr}.trio{grid-template-columns:1fr 1fr}.trio .ph:last-child{grid-column:span 2}.takeoff{min-height:55vh}}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important}.stamp.reveal{transform:rotate(8deg)!important}.cue i{animation:none}}
+@media(max-width:860px){.dishes{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){
+ nav a{font-size:.66rem;padding:.45rem .7rem}
+ main{padding:0 1rem 3rem}
+ .values,.milestones{grid-template-columns:1fr}
+ .cols,.scols{columns:1}
+ .dishes{gap:14px}.dcard h4{font-size:1.05rem}.dcard p{display:none}
+ .spread{grid-template-columns:1fr 1fr}.spread .ph,.spread .ph:nth-child(5n+1),.spread .ph:nth-child(5n+2){grid-column:span 1}
+ .pass .stub{width:96px}.pass .ap b{font-size:1.4rem}.pass .m{padding:.8rem}
+}
+@media(max-width:480px){.dishes{grid-template-columns:1fr}.dcard p{display:block}}
+@media(prefers-reduced-motion:reduce){.fl{animation:none}.hl span,.rate b,.art{opacity:1!important;transform:none!important;animation:none!important}}
+
+/* Version 2 entrance structure, styled with Version 1's warm palette and type */
+#splash{background:var(--cream);background-image:radial-gradient(ellipse 60% 40% at 100% 0,var(--peach),transparent 70%),radial-gradient(ellipse 50% 30% at 0 100%,rgba(168,181,122,.45),transparent 70%);flex-direction:column;align-items:center;justify-content:center;gap:clamp(.6rem,2.5vh,1.6rem);text-align:center;padding:1rem}
+.hey{font:400 min(25vw,19vh)/.84 var(--disp);color:var(--brown);letter-spacing:-.025em;margin:0;transform:scaleY(1.1);transform-origin:center}
+.plate{width:min(46vw,30vh);aspect-ratio:1;background:none;border:0;padding:0;cursor:pointer;border-radius:50%;filter:drop-shadow(0 14px 22px rgba(106,59,26,.3));animation:beat 1.8s 3.6s ease-in-out infinite}
+.plate svg{width:100%;height:100%;display:block}
+.ring{stroke-dasharray:100;stroke-dashoffset:100;animation:ring 3.4s linear forwards}
+.f{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3);animation:pop2 .55s cubic-bezier(.3,1.5,.5,1) forwards}
+.f1{animation-delay:.5s}.f2{animation-delay:1.3s}.f3{animation-delay:2.1s}.f4{animation-delay:2.8s}
+.hint2{position:relative;height:1.6rem;margin:0;width:100%;font:500 .85rem/1.6rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--brown)}
+.hint2 span{position:absolute;inset:0}
+.load{animation:fade2 .4s 3.3s forwards}.go{opacity:0;animation:in2 .6s 3.5s forwards}
+@keyframes ring{to{stroke-dashoffset:0}}@keyframes pop2{to{opacity:1;transform:none}}
+@keyframes fade2{to{opacity:0}}@keyframes in2{to{opacity:1}}@keyframes beat{50%{transform:scale(1.05)}}
+.team .founder-pic{flex:none;width:96px;height:96px;aspect-ratio:1/1;border-radius:50%;border:3px solid var(--paper);overflow:hidden;position:relative}
+.team .founder-pic.missing::after{font-size:.62rem;line-height:1.25;padding:.5rem}
+.team .photo-placeholder{background:var(--paper);color:var(--brown);border:2px dashed var(--brown);font-size:1.55rem;overflow:hidden}
+.team .photo-placeholder i{display:block}
+.team .photo-placeholder small{display:block;font:500 .48rem/1.15 var(--body);letter-spacing:.04em;text-align:center;margin-top:.2rem}
+@media(prefers-reduced-motion:reduce){.f,.go{opacity:1;transform:none;animation:none}.ring{stroke-dashoffset:0;animation:none}.load{display:none}.plate{animation:none}}
+
+/* goals + value text */
+.values strong{display:block}
+.score{text-align:center;margin:0 auto 2rem;font:400 1.1rem var(--serif)}
+.score b{display:block;font:400 clamp(3rem,10vw,4.6rem)/1 var(--disp);color:var(--orange)}
+.score span{font:italic 500 1.3rem var(--serif);color:var(--brown)}
+.goalgrid{display:grid;grid-template-columns:1fr;gap:1.2rem;max-width:820px;margin:0 auto}
+.goal{display:flex;gap:1rem;background:var(--paper);border:2px solid var(--sage);border-radius:26px;padding:1.3rem 1.4rem;box-shadow:0 10px 24px rgba(106,59,26,.1)}
+.goal .gn{flex:none;width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font:400 1.3rem var(--disp)}
+.goal h4{font:400 1.25rem var(--disp);color:var(--brown);margin:.35rem 0 .2rem}
+.goal p{font-size:.95rem;margin:0 0 .5rem}
+.goal .gnote{font:italic 500 1.08rem/1.45 var(--serif);color:var(--brown);border-left:3px solid var(--orange);padding-left:.8rem}
+.tg{display:inline-block;font:600 .66rem var(--body);letter-spacing:.14em;text-transform:uppercase;padding:.25rem .7rem;border-radius:999px}
+.tg.ok{background:var(--sage);color:var(--onsage)}
+.tg.part{background:var(--orange);color:#fff}
+.tg.no{border:1.5px solid var(--brown);color:var(--brown)}
+
+.vpill{position:absolute;right:1rem;top:50%;transform:translateY(-50%);display:inline-flex;padding:3px;border:1px solid rgba(30,26,38,.35);border-radius:999px;background:rgba(255,255,255,.75);font:600 .75rem/1 system-ui,sans-serif;z-index:60}
+.vpill a,.vpill span{display:inline-flex;align-items:center;min-height:28px;padding:0 .8rem;border-radius:999px;text-decoration:none;color:#1E1A26}
+.vpill [aria-current]{background:#1E1A26;color:#fff}
+.vpill a:hover{background:rgba(30,26,38,.12)}
+.vpill a:focus-visible{outline:2px solid #4A4D78;outline-offset:2px}
+.top{position:relative}
+</style>
+</head>
+<body>
+
+<div id="splash"><div class="fls" id="fls"></div>
+<h1 class="hey">Heyy<br>you</h1>
+<button id="enter" class="plate" type="button" aria-label="Click the plate to begin at About Him">
+<svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="97" fill="none" stroke="rgba(253,240,231,.35)" stroke-width="2"/><circle class="ring" cx="100" cy="100" r="97" fill="none" stroke="#FDF0E7" stroke-width="3" pathLength="100" transform="rotate(-90 100 100)"/><circle cx="100" cy="100" r="84" fill="#FDF0E7"/><circle cx="100" cy="100" r="66" fill="none" stroke="#D6D8E8" stroke-width="2"/>
+<g class="f f1"><path d="M52 98c4-24 36-34 56-20 14 11 12 32-8 40-22 9-52 4-48-20z" fill="#5A2A22"/><path d="M66 100c10-8 22-6 30 2" stroke="#7A3A2C" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+<g class="f f2"><ellipse cx="124" cy="82" rx="26" ry="19" fill="#C79A63"/><ellipse cx="124" cy="80" rx="21" ry="14" fill="#F2C75C"/><circle cx="117" cy="77" r="3" fill="#B9852F"/><circle cx="130" cy="83" r="2.5" fill="#B9852F"/></g>
+<g class="f f3"><path d="M60 136c10-10 20 8 30-2s20 6 28-4" stroke="#B7782F" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M84 146c8-6 16 6 24-2" stroke="#D49A4A" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+<g class="f f4"><circle cx="112" cy="112" r="2.5" fill="#6E8F3F"/><circle cx="120" cy="104" r="2" fill="#6E8F3F"/><circle cx="106" cy="120" r="2" fill="#6E8F3F"/></g></svg></button>
+<p class="hint2"><span class="load">Setting the table…</span><span class="go">Click the plate to see the menu of the day</span></p></div>
+<div id="sparks"></div>
+
+<header class="hd">
+  <div class="top"><a class="logo" href="#about">Hey you…</a><div class="vpill" role="group" aria-label="Site version"><a href="2025.html" title="Go to the 2025 version">2025</a><span aria-current="page">2026</span></div></div>
+  <nav id="tabs">
+    <a href="#about"><i class="fa-solid fa-heart"></i>About Him</a>
+    <a href="#menu"><i class="fa-solid fa-utensils"></i>The Menu</a>
+    <a href="#rolls"><i class="fa-solid fa-cookie-bite"></i>Cinnamon Rolls</a>
+    <a href="#table"><i class="fa-solid fa-people-group"></i>Chef’s Table</a>
+    <a href="#goals"><i class="fa-solid fa-bullseye"></i>His Goals</a>
+    <a href="#grace"><i class="fa-solid fa-book-open"></i>Grace &amp; Wisdom</a>
+    <a href="#rubik"><i class="fa-solid fa-cube"></i>Dessert</a>
+    <a href="#thanks"><i class="fa-solid fa-receipt"></i>The Bill</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ ABOUT HIM ============ -->
+<section class="panel" id="about">
+  <div class="mh"><h2>About Him</h2></div>
+  <div class="paper about">
+
+    <p class="lead">Some people are easy to describe by what they do. Others are better described by the person they are becoming. Musa is a little bit of both.</p>
+    <p>This year wasn’t necessarily the easiest year, and not everything went according to plan. But somewhere between the things he was figuring out, the people he was navigating, the responsibilities he was carrying, and the little moments in between, he kept becoming.</p>
+    <p>He’s funny sometimes without even trying. He’s sweet, loving, and has a way of making people feel cared for. He’s the kind of person who makes time, who can be in your corner, who brings a little lightness into serious moments, and who reminds you that life doesn’t always have to be so heavy.</p>
+    <p>And beyond all that, he’s a person with things he’s still building, dreams he’s still pursuing, and a purpose he’s still growing into.</p>
+    <p>This isn’t a celebration of someone who has everything figured out. It’s a celebration of Musa the person, the process, the growth, and all the little things that make him him.</p>
+
+    <h4>His Journey This Year<small>A Year of Becoming</small></h4>
+    <p>The year actually started on a pretty good note. He took on STC and even walked away with a distinction, which was already something worth celebrating. Things were going well until life became a little more complicated than expected.</p>
+    <p>There were disappointments, moments that didn’t quite work out the way he hoped, and seasons that probably asked more of him than he anticipated. But he kept going. He pushed through, found ways to keep himself occupied, tutored others, and continued showing up even when things weren’t necessarily easy.</p>
+    <p>His cooking journey wasn’t new either. It was something he had started the year before, but this year he kept building on it. He grew more confident in what he could do, continued feeding people, took on opportunities to cook for others and turned something he loved into something people were willing to pay him for.</p>
+    <p>And somewhere in between everything else, he kept finding his footing. Not necessarily by having everything figured out, but by continuing to move forward. Maybe that is what this year was really about. Not getting everything right, but not giving up on yourself either.</p>
+
+    <h4>Our Friendship<small>Somewhere Along the Way</small></h4>
+    <p>I think somewhere along the way, things became a little different between us. We didn’t stop caring or stop being friends. We just weren’t as present in each other’s lives as we once were.</p>
+    <p>There were still conversations, little catch ups, moments of sharing what was going on, studying together and the occasional side quest. We still found our way into each other’s days, even if it wasn’t as often as before.</p>
+    <p>I think that’s something I have come to appreciate about friendships. They don’t always look the same in every season. Sometimes life gets busy, sometimes things shift, and sometimes you don’t realise how much time has passed until you look back.</p>
+    <p>But even in the quieter seasons, there are people you still wish well, people you still root for and people whose lives you are still glad to be a part of. I’m glad you’re one of those people, Musa. And regardless of how this year looked for us, I will always be rooting for you, celebrating you and hoping life brings you good things.</p>
+
+    <h4>His Values</h4>
+    <ul class="values">
+      <li><strong>Service</strong> Using what he has to care for people, serve others and make a difference.</li>
+      <li><strong>Growth</strong> Always learning, improving and becoming better than he was yesterday.</li>
+      <li><strong>Community</strong> Building connections, showing up for people and creating spaces where people feel welcome.</li>
+      <li><strong>Purpose</strong> Living intentionally and aligning his gifts, faith and ambitions with what matters.</li>
+    </ul>
+
+    <h4>The Founder</h4>
+    <div class="team"><div class="fig founder-pic" data-label="Add photo: musa.jpg"><img src="web%202%20media/19.png" alt="Musa" onerror="this.parentNode.classList.add('missing');this.remove()"></div><div><b>Musa</b><span>Founder, Head Chef &amp; Campus Dad</span><span style="color:var(--ink);font-style:normal;font-size:.95rem;font-family:var(--body)">Private chef in the making.</span></div></div>
+    <div class="milestones" id="ms"></div>
+
+    <p style="margin-top:1.6rem;text-align:center">To the process, the growth and everything still being built. Can’t wait to see where life takes you, Musa.</p>
+    <div class="sign">With love and gratitude,<br>Mel</div>
+  </div>
+</section>
+
+<!-- ============ THE MENU ============ -->
+<section class="panel" id="menu">
+  <div class="mh"><h2>The Menu</h2></div>
+  <p class="intro">Fasten your seatbelt: a world tour on a plate, three kitchens, three stops, no jet lag.</p>
+  <div class="menuwrap" id="menuwrap"></div>
+  <p class="menunote">Tap any dish to see it up close. Thank you for flying Chimp Chimps Airways.</p>
+</section>
+
+<!-- ============ CINNAMON ROLLS ============ -->
+<section class="panel" id="rolls">
+  <div class="mh"><h2>Cinnamon Rolls</h2></div>
+  <article class="paper mag">
+    <div class="cols">
+      <p class="dc">Me and Musa used to get Chelsea buns every time I was hungry. It started because I would forget to eat when I was stressed, so as a custom he would get me a Chelsea bun, or I would buy two when we were studying together so that I do not starve, lol.</p>
+      <p>So before he gave me my gift, he explained how he got to that point. Chelsea buns are our thing, and these cinnamon rolls were his version of our tradition. Minus the raisins, because raisins are expensive, lol.</p>
+      <div class="pull">“Baked with love by the CompSci Chef.”</div>
+      <p>So I picked up my camera to capture them. I tried and I failed, but it was fun trying lol.</p>
+    </div>
+
+    <div class="trio">
+      <figure class="ph" data-title="Cinnamon Rolls" data-sub="Baked with love by the CompSci Chef." data-type="image" data-src="web%202%20media/24.jpg"><div class="fig" data-label="Add photo: web%202%20media/24.jpg"><img src="web%202%20media/24.jpg" alt="Cinnamon rolls, photo 1" onerror="this.parentNode.classList.add('missing');this.remove()"></div></figure>
+      <figure class="ph" data-title="Cinnamon Rolls" data-sub="Baked with love by the CompSci Chef." data-type="image" data-src="web%202%20media/22.jpg"><div class="fig" data-label="Add photo: web%202%20media/22.jpg"><img src="web%202%20media/22.jpg" alt="Cinnamon rolls, photo 2" onerror="this.parentNode.classList.add('missing');this.remove()"></div></figure>
+      <figure class="ph" data-title="Cinnamon Rolls" data-sub="Baked with love by the CompSci Chef." data-type="image" data-src="web%202%20media/23.jpg"><div class="fig" data-label="Add photo: web%202%20media/23.jpg"><img src="web%202%20media/23.jpg" alt="Cinnamon rolls, photo 3" onerror="this.parentNode.classList.add('missing');this.remove()"></div></figure>
+    </div>
+
+  </article>
+</section>
+
+<!-- ============ CHEF'S TABLE ============ -->
+<section class="panel" id="table">
+  <div class="mh"><h2>Chef’s Table</h2></div>
+  <article class="paper mag">
+    <p class="deck">A wall of memories the people, the detours and the laughs that happened away from the stove.</p>
+    <div class="cols">
+      <p class="dc">Every table has stories, and this one is a wall of them. Not the class notes or the kitchen, but everything in between: the walks, the detours, the laughs that had no reason, and the photos nobody planned.</p>
+      <p>We are in second year now, and the wall keeps filling up. Think of it as the table where everything that did not fit on the menu ended up.</p>
+    </div>
+    <div class="spread" id="spread"></div>
+  </article>
+</section>
+
+<!-- ============ GOALS ============ -->
+<section class="panel" id="goals">
+  <div class="mh"><h2>His Goals</h2><p>The bucket list from last year, and where it stands now.</p></div>
+  <div class="goalgrid" id="goalgrid"></div>
+  <div class="paper about" style="margin-top:2rem">
+    <h4>A Reflection</h4>
+    <p class="lead">Yes not all was achieved but look at everything that was never even on the list.</p>
+    <p>Two goals did not land the way you hoped, and that is okay. A gallery submission can wait for next year. Graduating with a distinction is a bigger flex. Neither one cancels out the rest of your year.</p>
+    <p>Remember that you did manage to do so much more outside the bucket list, you even did  12 hour prayer and fasting session chief. A study group that gave people a place to learn. Evangelism and leadership at church. Boxing. Tutoring other people while carrying his own load. A cooking journey that turned into paid work. A closer walk with God and with his family.</p>
+    <p>That is not a person who fell short. That is a person who kept moving through a hard year and still built something. Keep the list, Musa. Keep adding to it.</p>
+  </div>
+</section>
+
+<!-- ============ GRACE & WISDOM ============ -->
+<section class="panel" id="grace">
+  <div class="mh"><h2>Grace &amp; Wisdom</h2></div>
+  <h3 class="sh">Chef’s specials: watch these</h3>
+  <div class="vids" id="vids"></div>
+  <h3 class="sh">Grace before meals</h3>
+<div class="verses">
+    <div class="verse"><q>I have been crucified with Christ. It is no longer I who live, but Christ who lives in me. And the life I now live in the flesh I live by faith in the Son of God.</q><cite>Galatians 2:20</cite></div>
+    <div class="verse"><q>For me to live is Christ, and to die is gain.</q><cite>Philippians 1:21</cite></div>
+    <div class="verse"><q>But seek first the kingdom of God and his righteousness, and all these things will be added to you.</q><cite>Matthew 6:33</cite></div>
+    <div class="verse"><q>But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control; against such things there is no law.</q><cite>Galatians 5:22-23</cite></div>
+</div>
+
+  <h3 class="sh">Food for thought</h3>
+  <div class="verses">
+    <div class="verse dark"><q>The most important thing is to try and inspire people so that they can be great in whatever they want to do..</q><cite>Kobe Bryant</cite></div>
+    <div class="verse dark"><q>Every action you take is a vote for the type of person you wish to become.</q><cite> James Clear</cite></div>
+    <div class="verse dark"><q>I am ever strong and alive, for the joy of the Lord is my strength.</q><cite>Pastor Chris Oyakhilome</cite></div>
+    <div class="verse dark"><q>The quicker you let go of old cheese, the sooner you find new cheese.</q><cite>Spencer Johnson</cite></div>
+</div>
+</section>
+
+<!-- ============ DESSERT ============ -->
+<section class="panel" id="rubik">
+  <div class="mh"><h2>A Little Challenge</h2></div>
+  <div class="scene" id="scene"><div class="rv" id="rv"></div></div>
+  <p style="text-align:center"><button class="solve" id="try" type="button">Try solving it here</button></p>
+  <div id="play" hidden>
+    <p class="hint">Drag the cube to look around. Tap a letter to turn that side: U up, D down, L left, R right, F front, B back. A letter with ′ turns the other way.</p>
+    <div class="moves" id="moves"></div>
+    <p style="text-align:center;margin-top:1rem"><button class="solve alt" id="scr" type="button">Scramble</button> <button class="solve alt" id="rst" type="button">Reset</button></p>
+    <p class="rwin" id="rwin"><span>Order up! Now text me, I owe you.</span></p>
+  </div><br>
+  <p class="rmsg">Yes, I got you a silly gift, but bear with me and challenge yourself. By the time I see you next, I trust you will be able to solve it. I will owe you something, so remind me in case I forget, lol.</p>
+  <div class="ticket"><b><i class="fa-solid fa-ticket"></i></b><div><h4>I owe you one</h4><p>Redeemable once you can solve the Rubik’s cube.</p></div></div>
+</section>
+
+<!-- ============ THE BILL ============ -->
+<section class="panel" id="thanks">
+  <div class="mh"><h2>Appreciate You, Bro</h2></div>
+  <div class="rcw"><div class="receipt">
+    <div class="rh"><h3>Chimp Chimps</h3><p>Receipt for one year of becoming</p></div>
+    <div class="rl"><span>Study sessions</span><span class="ld"></span><span>x forever</span></div>
+    <div class="rl"><span>Random food runs</span><span class="ld"></span><span>x lost count</span></div>
+    <div class="rl"><span>Always having my back</span><span class="ld"></span><span>x always</span></div>
+    <div class="rl"><span>Side quests</span><span class="ld"></span><span>x a few</span></div>
+    <div class="rl rt"><span>TOTAL</span><span class="ld"></span><span>Priceless</span></div>
+    <p class="rn">For the study sessions, the random food runs, and always having my back.</p>
+    <p class="big">Thank you for this year.</p>
+    <div class="code"></div>
+    <p class="srv">Your server today: Mel, with love</p>
+  </div></div>
+</section>
+
+</main>
+
+
+<div class="lb" id="lb"><button class="x" id="lbx" aria-label="Close">×</button><button class="nv l" id="lbl" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4 7 12l8 8"/></svg></button><button class="nv r" id="lbr" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 4 8 8-8 8"/></svg></button><div class="card"><div class="pin"></div><div class="box" id="lbc"></div><div class="cap"><div class="ct" id="lbt"></div><div class="cs" id="lbs"></div></div></div><div class="cnt" id="lbn"></div></div>
+
+<script>
+/* =====================================================
+   EDIT YOUR CONTENT HERE
+   Put his food photos in a folder called "food" next to this file.
+   Rename titles/captions freely; a missing photo shows a placeholder.
+   ===================================================== */
+var MENU=[
+ {from:'Chef’s Kitchen',code:'FCO',place:'Italy',flight:'Flight 01',gate:'Garlic',script:'Benvenuti in',cat:'Italy',note:'Pizza, pasta and a lot of garlic',stamp:'Arrived · Italy',dishes:[
+  {t:'Pizza',it:'Pizza vegana',d:'Made from scratch. Inspired by his Italian roots',img:'web%202%20media/27.png'},
+  {t:'Pasta Night',it:'Pasta della sera',d:'The kind of plate that ends a long day.',img:'web%202%20media/21.jpg'},
+  {t:'Lasagna',it:'Lasagna',d:'Layers of sauce, cheese and patience.',img:'web%202%20media/7.jpg'}],
+  next:'Next stop: Japan · 14 hours of umami'},
+ {from:'Italy',code:'HND',place:'Japan',flight:'Flight 02',gate:'Umami',script:'Irasshaimase',cat:'Japan',note:'Precision, patience and a lot of umami',stamp:'Arrived · Japan',dishes:[
+  {t:'Breakfast',it:'Morning plate',d:'The best way to start a day.',img:'web%202%20media/2.jpg'},
+  {t:'Noodles & Ramen',it:'Noodle night',d:'Another bowl, another reason to stay at the table.',img:'web%202%20media/26.png'},
+  {t:'Noodles with Eggs',it:'More noodles',d:'Simple, quick and somehow always hits the spot.',img:'web%202%20media/6.jpg'}],
+  next:'Connecting flight: Africa · bring your appetite and your hands'},
+ {from:'Japan',code:'JNB',place:'Africa',flight:'Flight 03',gate:'Home',script:'Welcome to',cat:'Africa',note:'Bold, generous and made for sharing',stamp:'Arrived · Africa',dishes:[
+  {t:'Many meals',it:'5 plates',d:'Bro kept improving his culinary skills',img:'web%202%20media/14.jpg'},
+  {t:'Thanksgiving',it:'Holiday feast',d:'The kind of table that brings everyone together.',img:'web%202%20media/4.jpg'},
+  {t:'Cooking for People at Home',it:'House special',d:'Dinner for the people at home, just because.',img:'web%202%20media/3.jpg'}]}
+];
+var MILESTONES=[
+ ['Found His Person','Some things just deserve their own chapter. He prayed for her and it happened'],
+ ['The Study Plug','Started a study group and created a space for people to learn, work and figure things out together.'],
+ ['Faith in Action','Evangelism, serving at church and continuing to live out his faith beyond just words.'],
+ ['Leadership Unlocked','Took on leadership responsibilities at church and continued showing up where he was needed.'],
+ ['From Passion to Plates','Continued growing his cooking, prepared food for people and turned his skill into paid opportunities.'],
+ ['The Level-Up Arc','Boxing, skills development and other personal benchmarks that made this year about more than just getting through it.']
+];
+var GOALS=[
+ {t:'Closer to God and family',s:'Achieved',k:'ok',d:'To grow spiritually and build a closer relationship with his father. A goal that wasn’t just about achievement, but about the person he wanted to become.',n:'He leaned into his faith this year through evangelism, serving and leading at church.'},
+ {t:'Return to art',s:'Partly there',k:'part',d:'To reconnect with his creative side, make A1 artwork and hopefully submit work to campus galleries.',n:'The campus galleries did not happen this time, but he started the year with an art series. That means the creative side is awake. The gallery can still be next year’s story.'},
+ {t:'Chef status',s:'Achieved',k:'ok',d:'To become more confident in the kitchen and reach private-chef level.',n:'This one actually happened. From cooking because he loved it to cooking for people who paid him for it.'},
+ {t:'Academic excellence',s:'Found other ways to get there',k:'no',d:'To make the Dean’s List and keep working towards his degree.',n:'A goal that was adapted to better things like tutoring others and having study sessions.'},
+ {t:'Find his person',s:'Achieved',k:'ok',d:'A goal about finding someone special.',n:'He found someone. He prayed and God answered.'}
+];
+var FRIENDS=[
+ {src:'web%202%20media/29.jpg',cap:'COS 221 team!!'},
+ {src:'web%202%20media/25.jpg',cap:'This was actually fun ngl'},
+ {src:'web%202%20media/27.jpg',cap:'a gentle reminder that I have stalkers from time to time '},
+ {src:'web%202%20media/28.jpg',cap:'The dream team!'},
+ {src:'web%202%20media/26.jpg',cap:'Big boss became a whole tutor this year'},
+ {src:'web%202%20media/40.jpeg',cap:'Chimp Chimps🐒🐒'},
+ {src:'web%202%20media/39.jpeg',cap:'Chimp Chimps🐒🐒'},
+ {src:'web%202%20media/5.mp4',cap:'Campus dad',video:1},
+ {src:'web%202%20media/6.mp4',cap:'Bloopers for my EC video',video:1},
+ {src:'web%202%20media/43.jpeg',cap:'Chimp Chimps🐒🐒'},
+ {src:'web%202%20media/30.jpg',cap:'The brother is doing interviews a lot of confidence gained Sir'},
+ {src:'web%202%20media/31.jpeg',cap:'A picture with the campus Dad'},
+ {src:'web%202%20media/41.jpeg',cap:'Chimp Chimps🐒🐒'},
+ {src:'web%202%20media/42.jpeg',cap:'Chimp Chimps🐒🐒'},
+ {src:'web%202%20media/32.jpeg',cap:'The study sessions'},
+ {src:'web%202%20media/33.jpeg',cap:'COS 214 Chronicles'},
+ {src:'web%202%20media/34.jpeg',cap:'Chimp Chimps🐒🐒'},
+ {src:'web%202%20media/37.jpeg',cap:'Certified Chef who gets paid!!'},
+ {src:'web%202%20media/38.jpeg',cap:'Chimp Chimps chronicles🐒🐒'},
+ {src:'web%202%20media/7.mp4',cap:'Featured in my Ec video',video:1},
+ {src:'web%202%20media/36.jpeg',cap:'The meal prep business'},
+ {src:'web%202%20media/35.jpeg',cap:'Shopping'},
+ {src:'web%202%20media/1.jpg',cap:'Started series for the COMPSCI CHEF'}
+];
+var VIDS=[['web%202%20media/1.mp4','Gift'],['web%202%20media/2.mp4','Mindset'],['web%202%20media/3.mp4','Resilience'],['web%202%20media/4.mp4','Discipline']];
+
+/* ---------- render helpers ---------- */
+function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+function fig(src,label,video){
+  var m=video?'<video src="'+src+'" muted preload="metadata" onerror="this.parentNode.classList.add(\'missing\');this.remove()"></video>'
+             :'<img src="'+src+'" alt="'+label+'" loading="lazy" onerror="this.parentNode.classList.add(\'missing\');this.remove()">';
+  return '<div class="fig" data-label="Add photo: '+src+'">'+m+'</div>';
+}
+document.getElementById('ms').innerHTML=MILESTONES.map(function(m,i){return '<div class="ms"><i>'+(i+1)+'</i><div><b>'+m[0]+'</b><p>'+m[1]+'</p></div></div>'}).join('');
+document.getElementById('goalgrid').innerHTML=GOALS.map(function(g,i){return '<div class="goal"><div class="gn">'+(i+1)+'</div><div><span class="tg '+g.k+'">'+g.s+'</span><h4>'+g.t+'</h4><p>'+g.d+'</p><p class="gnote">'+g.n+'</p></div></div>'}).join('');
+var mw=document.getElementById('menuwrap'),PL='<i class="fa-solid fa-plane"></i>';
+var stops=['Kitchen'].concat(MENU.map(function(c){return c.place}));
+mw.innerHTML='<div class="takeoff"><div class="route">'+stops.map(function(t,i){
+    return (i?'<span class="rt-pl reveal" style="--d:'+(i*2-1)+'">'+PL+'</span>':'')+'<b class="reveal" style="--d:'+(i*2)+'">'+t+'</b>'}).join('')+
+  '</div><div class="cue reveal" style="--d:9">Scroll to take off<br><i class="fa-solid fa-chevron-down"></i></div></div>'+
+MENU.map(function(c){
+  return '<div class="stop">'+
+  '<div class="pass reveal"><div class="m"><div class="ap reveal" style="--d:2"><small>From</small><b>'+c.from+'</b></div><div class="fl-line reveal" style="--d:3">'+PL+'</div><div class="ap to reveal" style="--d:4"><small>To</small><b>'+c.place+' · '+c.code+'</b></div></div><div class="stub reveal" style="--d:5"><small>'+c.flight+' · Gate</small><b>'+c.gate+'</b></div></div>'+
+  '<div class="dest reveal" style="--d:2"><span>'+c.script+'</span><h3>'+c.cat+'</h3><small>'+c.note+'</small></div>'+
+  '<div class="region"><div class="stamp reveal" style="--d:6">'+c.stamp+'</div><div class="dishes">'+
+  c.dishes.map(function(d,i){return '<div class="dcard reveal" style="--d:'+i+'" data-type="image" data-src="'+d.img+'" data-title="'+esc('The Menu · '+c.place)+'" data-sub="'+esc(d.t+'. '+d.d)+'"><div class="tag">'+c.cat+'</div>'+fig(d.img,d.t)+'<div class="it">'+d.it+'</div><h4>'+d.t+'</h4><p>'+d.d+'</p><div class="pr">Made with love</div></div>'}).join('')+'</div></div>'+
+  '</div>'+
+  (c.next?'<div class="connect reveal"><b>'+PL+'</b>'+c.next+'<b>'+PL+'</b></div>':'');
+}).join('');
+document.getElementById('spread').innerHTML=FRIENDS.map(function(f){
+  return '<figure class="ph" data-type="'+(f.video?'video':'image')+'" data-src="'+f.src+'" data-title="Chef’s Table" data-sub="'+esc(f.cap)+'">'+fig(f.src,f.cap,f.video)+'<figcaption>'+f.cap+'</figcaption></figure>'}).join('');
+document.getElementById('vids').innerHTML=VIDS.map(function(v){
+  return '<div class="vcard" data-type="video" data-src="'+v[0]+'" data-title="'+esc(v[1])+'" data-sub="Grace &amp; Wisdom"><div class="fig"><video src="'+v[0]+'" muted preload="metadata"></video><div class="play"><span><i class="fa-solid fa-play"></i></span></div></div><h4>'+v[1]+'</h4></div>'}).join('');
+
+/* ---------- tabs + lightbox ---------- */
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.18,rootMargin:'0px 0px -6% 0px'}):null;
+function armReveal(id){var els=document.querySelectorAll('#'+id+' .reveal');
+  els.forEach(function(el){el.classList.remove('in')});
+  requestAnimationFrame(function(){requestAnimationFrame(function(){els.forEach(function(el){if(io)io.observe(el);else el.classList.add('in')})})})}
+var cards=[],idx=0,lb=document.getElementById('lb'),lbc=document.getElementById('lbc');
+function show(){
+  var h=(location.hash||'#about').slice(1),el=document.getElementById(h);if(!el||!el.classList.contains('panel'))h='about';
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id===h)});
+  document.querySelectorAll('#tabs a').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+h)});
+  cards=Array.from(document.querySelectorAll('#'+h+' [data-src]'));
+  cards.forEach(function(c){
+    if(c.dataset.bound)return;c.dataset.bound=1;
+    c.onclick=function(){if(c.querySelector('.fig.missing'))return;openLb(cards.indexOf(c))};
+    var v=c.querySelector('video');
+    if(v){c.onmouseenter=function(){v.play().catch(function(){})};c.onmouseleave=function(){v.pause();v.currentTime=0}}
+  });
+  window.scrollTo(0,0);
+  armReveal(h);
+}
+window.addEventListener('hashchange',show);
+function openLb(i){idx=i;var c=cards[i],p=c.closest('.panel'),h=p&&p.querySelector('.mh h2');
+  lb.classList.add('on');lb.classList.toggle('vid',c.dataset.type==='video');
+  lbc.innerHTML=c.dataset.type==='image'?'<img src="'+c.dataset.src+'" alt="">':'<video src="'+c.dataset.src+'" controls autoplay playsinline></video>';
+  document.getElementById('lbt').textContent=c.dataset.title||(h?h.textContent:'');
+  document.getElementById('lbs').textContent=c.dataset.sub||'';
+  document.getElementById('lbn').textContent=(i+1)+' of '+cards.length}
+function closeLb(){lb.classList.remove('on');lbc.innerHTML=''}
+function step(d){openLb((idx+d+cards.length)%cards.length)}
+document.getElementById('lbx').onclick=closeLb;
+lb.onclick=function(e){if(e.target===lb)closeLb()};
+document.getElementById('lbl').onclick=function(e){e.stopPropagation();step(-1)};
+document.getElementById('lbr').onclick=function(e){e.stopPropagation();step(1)};
+document.onkeydown=function(e){if(!lb.classList.contains('on'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)};
+var sx=0;lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX});
+lb.addEventListener('touchend',function(e){var d=e.changedTouches[0].clientX-sx;if(d>50)step(-1);if(d<-50)step(1)});
+show();
+
+/* ---------- splash + floating food & code icons ---------- */
+(function(){
+  var sp=document.getElementById('splash');document.body.classList.add('lock');
+  document.getElementById('enter').onclick=function(){sp.classList.add('out');document.body.classList.remove('lock')};
+  var IC=['fa-pizza-slice','fa-pepper-hot','fa-carrot','fa-burger','fa-code','fa-terminal','fa-bread-slice','fa-lemon','fa-mug-hot','fa-cheese','fa-egg','fa-fish','fa-bowl-food','fa-laptop-code','fa-cookie-bite','fa-utensils'],
+      CL=['#8E92B3','#1E1A26','#4A4D78','#F0F1CF'];
+  function mk(box,n){for(var i=0;i<n;i++){var f=document.createElement('i');f.className='fl fa-solid '+IC[i%IC.length];
+    f.style.cssText='left:'+Math.random()*96+'%;--s:'+(20+Math.random()*22)+'px;--c:'+CL[i%4]+';--d:'+(16+Math.random()*16)+'s;--l:-'+Math.random()*24+'s;--rot:'+(Math.random()*360-180)+'deg';box.appendChild(f)}}
+  mk(document.getElementById('fls'),18);mk(document.getElementById('sparks'),18);
+})();
+
+/* ---------- playable rubik's cube ---------- */
+(function(){
+var S=60,COL={'0,1,0':'#FFFAEE','0,-1,0':'#F5BF25','0,0,1':'#2F6DB5','0,0,-1':'#6E8F3F','1,0,0':'#D9472B','-1,0,0':'#EE8A45'};
+var rv=document.getElementById('rv'),scene=document.getElementById('scene'),win=document.getElementById('rwin');
+function rot(k,a){var c=Math.cos(a),s=Math.sin(a);return k==0?[[1,0,0],[0,c,-s],[0,s,c]]:k==1?[[c,0,s],[0,1,0],[-s,0,c]]:[[c,-s,0],[s,c,0],[0,0,1]]}
+function mul(A,B){return A.map(function(r){return [0,1,2].map(function(j){return r[0]*B[0][j]+r[1]*B[1][j]+r[2]*B[2][j]})})}
+function mv(A,v){return A.map(function(r){return r[0]*v[0]+r[1]*v[1]+r[2]*v[2]})}
+function rnd(M){return M.map(function(r){return r.map(Math.round)})}
+var NR={'0,0,1':rot(1,0),'0,0,-1':rot(1,Math.PI),'1,0,0':rot(1,Math.PI/2),'-1,0,0':rot(1,-Math.PI/2),'0,1,0':rot(0,-Math.PI/2),'0,-1,0':rot(0,Math.PI/2)};
+var FACES={U:[0,1,0],D:[0,-1,0],L:[-1,0,0],R:[1,0,0],F:[0,0,1],B:[0,0,-1]},st=[];
+[[0,0,1],[0,0,-1],[0,1,0],[0,-1,0],[1,0,0],[-1,0,0]].forEach(function(n){
+  var k=document.createElement('div');k.className='core';
+  var key=n.join(',');k.style.transform='matrix3d('+tfm(rnd(NR[key]),n.map(function(v){return v*89})).join(',')+')';rv.appendChild(k)});
+function tfm(R,p){var f=[1,-1,1],m=[];for(var j=0;j<3;j++){for(var i=0;i<3;i++)m.push(f[i]*f[j]*R[i][j]);m.push(0)}
+  m.push(p[0],-p[1],p[2],1);return m}
+function put(s,c,R){var p=[c[0]*S+R[0][2]*S/2,c[1]*S+R[1][2]*S/2,c[2]*S+R[2][2]*S/2];s.d.style.transform='matrix3d('+tfm(R,p).join(',')+')'}
+for(var x=-1;x<2;x++)for(var y=-1;y<2;y++)for(var z=-1;z<2;z++){var c=[x,y,z];
+  [0,1,2].forEach(function(k){if(!c[k])return;var n=[0,0,0];n[k]=c[k];var key=n.join(','),d=document.createElement('div');
+    d.className='stk';d.style.background=COL[key];rv.appendChild(d);var R=rnd(NR[key]);st.push({c:c,R:R,c0:c,R0:R,d:d,col:COL[key]})})}
+function draw(){st.forEach(function(s){put(s,s.c,s.R)})}
+function info(name,prime){var n=FACES[name],k=n.findIndex(function(v){return v!==0});
+  return {k:k,a:(prime?1:-1)*n[k]*Math.PI/2,L:st.filter(function(s){return s.c[k]===n[k]})}}
+function commit(m){var M=rot(m.k,m.a);m.L.forEach(function(s){s.c=mv(M,s.c).map(Math.round);s.R=rnd(mul(M,s.R))})}
+function isSolved(){var g={};return st.every(function(s){var k=[Math.round(s.R[0][2]),Math.round(s.R[1][2]),Math.round(s.R[2][2])].join(',');return g[k]?g[k]===s.col:(g[k]=s.col,true)})}
+var busy=false,queue=[],dirty=false;
+function next(){if(busy||!queue.length)return;var q=queue.shift(),m=info(q[0],q[1]),t0=null,base=m.L.map(function(s){return [s.c,s.R]});busy=true;
+  (function fr(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/240),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,M=rot(m.k,m.a*e);
+    m.L.forEach(function(s,i){put(s,mv(M,base[i][0]),mul(M,base[i][1]))});
+    if(p<1)requestAnimationFrame(fr);else{commit(m);m.L.forEach(function(s){put(s,s.c,s.R)});busy=false;
+      if(!queue.length&&dirty&&isSolved())win.classList.add('on');next()}})(performance.now())}
+function turn(n,p){queue.push([n,p]);next()}
+function scramble(){queue=[];var ns=Object.keys(FACES),last='';for(var i=0;i<24;i++){var n;do{n=ns[Math.floor(Math.random()*6)]}while(n===last);last=n;commit(info(n,Math.random()<.5))}
+  draw();dirty=true;win.classList.remove('on')}
+var mo=document.getElementById('moves');
+['U','D','L','R','F','B'].forEach(function(n){var b=document.createElement('button');b.textContent=n;b.setAttribute('aria-label','Turn '+n);b.onclick=function(){turn(n,false)};mo.appendChild(b)});
+['U','D','L','R','F','B'].forEach(function(n){var b=document.createElement('button');b.textContent=n+'′';b.setAttribute('aria-label','Turn '+n+' the other way');b.onclick=function(){turn(n,true)};mo.appendChild(b)});
+document.getElementById('scr').onclick=scramble;
+document.getElementById('rst').onclick=function(){queue=[];st.forEach(function(s){s.c=s.c0;s.R=s.R0});draw();dirty=false;win.classList.remove('on')};
+var play=document.getElementById('play'),tr=document.getElementById('try'),rx=-26,ry=-35,auto=true,drag=null,calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function view(){rv.style.transform='rotateX('+rx+'deg) rotateY('+ry+'deg)'}
+tr.onclick=function(){var open=play.hidden;play.hidden=!open;auto=!open;tr.textContent=open?'Just admire it':'Try solving it here';if(open&&!dirty)scramble()};
+scene.addEventListener('pointerdown',function(e){drag=[e.clientX,e.clientY];auto=false;try{scene.setPointerCapture(e.pointerId)}catch(_){}});
+scene.addEventListener('pointermove',function(e){if(!drag)return;ry+=(e.clientX-drag[0])*.6;rx-=(e.clientY-drag[1])*.6;drag=[e.clientX,e.clientY];view()});
+['pointerup','pointercancel'].forEach(function(ev){scene.addEventListener(ev,function(){drag=null})});
+(function spin(){if(auto&&!drag&&!calm){ry+=.3;view()}requestAnimationFrame(spin)})();
+scramble();dirty=false;view();
+})();
+</script>
+<script>document.getElementById('enter').addEventListener('click',function(){location.hash='#about'})</script>
+</body>
+</html>
